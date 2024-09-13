@@ -241,6 +241,8 @@ public class Restaurant {
      * @param sc the scanner to read from
      */
     public void findCustomer(Scanner sc) {
+        System.out.println("- Search Customer Record ---------------");
+
         // If the record is empty, then there is nothing to search.
         if (this.customerQty == 0) {
             System.out.println("Sorry! There are no customer records to search.");
@@ -350,6 +352,17 @@ public class Restaurant {
             return;
         }
 
+        // Confirm the deletion
+        String confirmation;
+        System.out.print("Are you sure you want to delete this customer record? (Y to confirm): ");
+        confirmation = sc.nextLine().trim();
+
+        if (!confirmation.equalsIgnoreCase("Y")) {
+            System.out.printf("Cancelled deletion of customer record %d.\n", customerCode);
+            return;
+        }
+
+        System.out.printf("Deleted customer record %d.\n", customerCode);
         // Iterate over the record starting from the element to delete
         // Shift elements to the left to delete the record
         for (int i = index; i < customerQty - 1; i++) {
