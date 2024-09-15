@@ -41,38 +41,22 @@ public class Restaurant {
     // Methods
 
     /**
-     * Computes for the correct amount of space needed to print the columns of a record
+     * Computes for the correct amount of space needed to print the name column of a record
      *
-     * @return the array containing the amount of space needed for each column
+     * @return the length of space needed for the name column
      */
-    private int[] getMaxStringLengths() {
-        // Find the maximum string lengths for each column
-        int customerCodeMax = 0;
-        int nameMax = 0;
-        int loyaltyPointsMax = 0;
+    private int getMaxNameLengths() {
+        // Find the maximum name length
+        int max = 0;
         for (int i = 0; i < this.customerQty; i++) {
-            int customerCodeCurrent = String.valueOf(this.customerRecords[i].getCustomerCode()).length();
             int nameCurrent = this.customerRecords[i].getFirstName().length() + this.customerRecords[i].getLastName().length() + 1;
-            int loyaltyPointsCurrent = String.valueOf(this.customerRecords[i].getLoyaltyPoints()).length();
-
-            if (customerCodeCurrent > customerCodeMax) {
-                customerCodeMax = customerCodeCurrent;
-            }
-            if (nameCurrent > nameMax) {
-                nameMax = nameCurrent;
-            }
-            if (loyaltyPointsCurrent > loyaltyPointsMax) {
-                loyaltyPointsMax = loyaltyPointsCurrent;
+            if (nameCurrent > max) {
+                max = nameCurrent;
             }
         }
 
-        // Add padding
-        customerCodeMax += STRING_PADDING;
-        nameMax += STRING_PADDING;
-        loyaltyPointsMax += STRING_PADDING;
-
-        // Return the array
-        return new int[]{customerCodeMax, nameMax, loyaltyPointsMax};
+        // Return the result
+        return max + STRING_PADDING;
     }
 
     /**
@@ -270,7 +254,7 @@ public class Restaurant {
         // Search the record for the customer code and print its state if it exists
         for (int i = 0; i < customerQty; i++) {
             if (this.customerRecords[i].getCustomerCode() == customerCode) {
-                customerRecords[i].viewState();
+                customerRecords[i].viewRecord();
                 return;
             }
         }
@@ -293,22 +277,20 @@ public class Restaurant {
         int initNameLength = "Name".length() + STRING_PADDING;
         int initLoyaltyPointsLength = "Loyalty Points".length() + STRING_PADDING;
 
-        // Calculate the maximum length needed for printing the columns
-        int[] lengths = getMaxStringLengths();
-        int customerCodeLength = Math.max(lengths[0], initCustomerCodeLength);
-        int nameLength = Math.max(lengths[1], initNameLength);
-        int loyaltyPointsLength = Math.max(lengths[2], initLoyaltyPointsLength);
+        // Calculate the maximum name length needed for printing the name column
+        int nameLength = Math.max(getMaxNameLengths(), initNameLength);
 
-        System.out.printf("%-" + customerCodeLength + "s", "Customer Code");
+        // Print the header
+        System.out.printf("%-" + initCustomerCodeLength + "s", "Customer Code");
         System.out.printf("%-" + nameLength + "s", "Name");
-        System.out.printf("%-" + loyaltyPointsLength + "s\n", "Loyalty Points");
+        System.out.printf("%-" + initLoyaltyPointsLength + "s\n", "Loyalty Points");
 
         // Print each customer record
         for (int i = 0; i < this.customerQty; i++) {
             if (this.customerRecords[i] != null) {
-                System.out.printf("%-" + customerCodeLength + "d", this.customerRecords[i].getCustomerCode());
+                System.out.printf("%-" + initCustomerCodeLength + "d", this.customerRecords[i].getCustomerCode());
                 System.out.printf("%-" + nameLength + "s", this.customerRecords[i].getFirstName() + " " + this.customerRecords[i].getLastName());
-                System.out.printf("%-" + loyaltyPointsLength + "d\n", this.customerRecords[i].getLoyaltyPoints());
+                System.out.printf("%-" + initLoyaltyPointsLength + "d\n", this.customerRecords[i].getLoyaltyPoints());
             }
         }
     }
@@ -356,7 +338,6 @@ public class Restaurant {
         String confirmation;
         System.out.print("Are you sure you want to delete this customer record? (Y to confirm): ");
         confirmation = sc.nextLine().trim();
-
         if (!confirmation.equalsIgnoreCase("Y")) {
             System.out.printf("Cancelled deletion of customer record %d.\n", customerCode);
             return;
