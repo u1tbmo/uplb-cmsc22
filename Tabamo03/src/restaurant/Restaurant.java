@@ -274,25 +274,25 @@ public class Restaurant {
             return;
         }
 
-        // Initialize the initial length for the columns
-        int initCustomerCodeLength = "Customer Code".length() + STRING_PADDING;
-        int initNameLength = "Name".length() + STRING_PADDING;
-        int initLoyaltyPointsLength = "Loyalty Points".length() + STRING_PADDING;
+        // Initialize the initial length for the name column
+        int nameLength = "Name".length() + STRING_PADDING;
 
-        // Calculate the maximum name length needed for printing the name column
-        int nameLength = Math.max(getMaxNameLengths(), initNameLength);
+        // Calculate the maximum length needed for printing the name column
+        int customerCodeLength = "Customer Code".length() + STRING_PADDING;
+        nameLength = Math.max(getMaxNameLengths(), nameLength);
+        int loyaltyPointsLength = "Loyalty Points".length() + STRING_PADDING;
 
         // Print the header
-        System.out.printf("%-" + initCustomerCodeLength + "s", "Customer Code");
+        System.out.printf("%-" + customerCodeLength + "s", "Customer Code");
         System.out.printf("%-" + nameLength + "s", "Name");
-        System.out.printf("%-" + initLoyaltyPointsLength + "s\n", "Loyalty Points");
+        System.out.printf("%-" + loyaltyPointsLength + "s\n", "Loyalty Points");
 
         // Print each customer record
         for (int i = 0; i < this.customerQty; i++) {
             if (this.customerRecords[i] != null) {
-                System.out.printf("%-" + initCustomerCodeLength + "d", this.customerRecords[i].getCustomerCode());
+                System.out.printf("%-" + customerCodeLength + "d", this.customerRecords[i].getCustomerCode());
                 System.out.printf("%-" + nameLength + "s", this.customerRecords[i].getFirstName() + " " + this.customerRecords[i].getLastName());
-                System.out.printf("%-" + initLoyaltyPointsLength + "d\n", this.customerRecords[i].getLoyaltyPoints());
+                System.out.printf("%-" + loyaltyPointsLength + "d\n", this.customerRecords[i].getLoyaltyPoints());
             }
         }
     }
