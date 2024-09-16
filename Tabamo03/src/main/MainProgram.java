@@ -71,5 +71,8 @@ public class MainProgram {
                     break;
             }
         } while (choice != 0);
+
+        // Close the scanner
+        sc.close();
     }
 }
