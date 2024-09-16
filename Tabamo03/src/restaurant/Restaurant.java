@@ -277,12 +277,14 @@ public class Restaurant {
         // Initialize the initial length for the name column
         int nameLength = "Name".length() + STRING_PADDING;
 
-        // Calculate the maximum length needed for printing the name column
+        // Calculate the maximum length needed for printing the columns
+        int customerIdLength = "ID".length() + STRING_PADDING;
         int customerCodeLength = "Customer Code".length() + STRING_PADDING;
         nameLength = Math.max(getMaxNameLengths(), nameLength);
         int loyaltyPointsLength = "Loyalty Points".length() + STRING_PADDING;
 
         // Print the header
+        System.out.printf("%-" + customerIdLength + "s", "ID");
         System.out.printf("%-" + customerCodeLength + "s", "Customer Code");
         System.out.printf("%-" + nameLength + "s", "Name");
         System.out.printf("%-" + loyaltyPointsLength + "s\n", "Loyalty Points");
@@ -290,6 +292,7 @@ public class Restaurant {
         // Print each customer record
         for (int i = 0; i < this.customerQty; i++) {
             if (this.customerRecords[i] != null) {
+                System.out.printf("%-" + customerIdLength + "d", this.customerRecords[i].getCustomerId());
                 System.out.printf("%-" + customerCodeLength + "d", this.customerRecords[i].getCustomerCode());
                 System.out.printf("%-" + nameLength + "s", this.customerRecords[i].getFirstName() + " " + this.customerRecords[i].getLastName());
                 System.out.printf("%-" + loyaltyPointsLength + "d\n", this.customerRecords[i].getLoyaltyPoints());
@@ -355,7 +358,7 @@ public class Restaurant {
             this.customerRecords[i] = this.customerRecords[i + 1];
         }
 
-        // Decrement the qty
-        customerQty--;
+        // Decrement the qty for the restaurant
+        this.customerQty--;
     }
 }

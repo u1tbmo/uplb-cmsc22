@@ -10,7 +10,11 @@ public class Customer {
     // Static Constants
     private final static int STRING_PADDING = 4;
 
+    // Static Attributes
+    private static int customerIdsIssued = 0;
+
     // Attributes
+    private final int customerId;
     private final String firstName;
     private final String lastName;
     private final int customerCode;
@@ -25,13 +29,18 @@ public class Customer {
      * @param loyaltyPoints the number of loyalty points of the customer
      */
     public Customer(String firstName, String lastName, int customerCode, int loyaltyPoints) {
+        this.customerId = ++customerIdsIssued; // Increment the customer quantity and assign it to the customer ID for every new customer
         this.firstName = firstName;
         this.lastName = lastName;
         this.customerCode = customerCode;
         this.loyaltyPoints = loyaltyPoints;
     }
 
-    // Getters
+    // Getters and Setters
+
+    public int getCustomerId() {
+        return this.customerId;
+    }
 
     public String getFirstName() {
         return this.firstName;
@@ -58,6 +67,7 @@ public class Customer {
     public void viewState() {
         System.out.println();
         System.out.println("- Customer ---------");
+        System.out.println("Customer ID:    " + this.customerId);
         System.out.println("Customer Code:  " + this.customerCode);
         System.out.println("First Name:     " + this.firstName);
         System.out.println("Last Name:      " + this.lastName);
@@ -77,16 +87,19 @@ public class Customer {
         int nameLength = this.firstName.length() + this.lastName.length() + STRING_PADDING;
 
         // Calculate the maximum length needed for printing the columns
+        int customerIdLength = "ID".length() + STRING_PADDING;
         int customerCodeLength = "Customer Code".length() + STRING_PADDING;
         nameLength = Math.max(nameLength, initNameLength);
         int loyaltyPointsLength = "Loyalty Points".length() + STRING_PADDING;
 
         // Print the header
+        System.out.printf("%-" + customerIdLength + "s", "ID");
         System.out.printf("%-" + customerCodeLength + "s", "Customer Code");
         System.out.printf("%-" + nameLength + "s", "Name");
         System.out.printf("%-" + loyaltyPointsLength + "s\n", "Loyalty Points");
 
         // Print the customer record
+        System.out.printf("%-" + customerIdLength + "d", this.customerId);
         System.out.printf("%-" + customerCodeLength + "d", this.customerCode);
         System.out.printf("%-" + nameLength + "s", this.firstName + " " + this.lastName);
         System.out.printf("%-" + loyaltyPointsLength + "d\n", this.loyaltyPoints);
