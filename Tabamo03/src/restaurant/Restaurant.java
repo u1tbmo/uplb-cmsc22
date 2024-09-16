@@ -264,7 +264,7 @@ public class Restaurant {
     }
 
     /**
-     * Prints a 3-column view of the restaurant's customer record
+     * Prints a 4-column view of the restaurant's customer record
      */
     public void viewCustomerRecord() {
         System.out.println("- Customer Record ----------------------");

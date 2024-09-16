@@ -76,7 +76,7 @@ public class Customer {
 
     /**
      * Prints the current record of the {@code Customer} to the terminal.
-     * <p> This prints the customer code, first and last name, and loyalty points in 3 columns.
+     * <p> This prints the customer id, customer code, first and last name, and loyalty points in 4 columns.
      */
     public void viewRecord() {
         System.out.println();
