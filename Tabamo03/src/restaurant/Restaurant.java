@@ -147,8 +147,10 @@ public class Restaurant {
                 customerCode = sc.nextInt();
                 if (customerCode < 0) {
                     System.out.println("Please enter a valid positive integer code.");
+                    continue;
                 } else if (this.contains(customerCode) != -1) {
                     System.out.println("That customer code already exists in the record. Please enter a new customer code.");
+                    continue;
                 }
                 customerCodeIsValid = true;
             } catch (InputMismatchException e) {
@@ -191,7 +193,7 @@ public class Restaurant {
         int loyaltyPoints = 0;
         boolean loyaltyPointsIsValid = false;
         do {
-            System.out.print("Enter a loyalty points: ");
+            System.out.print("Enter loyalty points: ");
             try {
                 loyaltyPoints = sc.nextInt();
                 if (loyaltyPoints < 0) {
@@ -333,6 +335,9 @@ public class Restaurant {
             System.out.println("Sorry! There is no existing customer record for that code.");
             return;
         }
+
+        // Print the state of the Customer
+        this.customerRecords[index].viewState();
 
         // Confirm the deletion
         String confirmation;
