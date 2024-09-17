@@ -49,7 +49,7 @@ public class Restaurant {
         // Find the maximum name length
         int max = 0;
         for (int i = 0; i < this.customerQty; i++) {
-            int nameCurrent = this.customerRecords[i].getFirstName().length() + this.customerRecords[i].getLastName().length() + 1;
+            int nameCurrent = (this.customerRecords[i].getFirstName() + " " + this.customerRecords[i].getLastName()).length();
             if (nameCurrent > max) {
                 max = nameCurrent;
             }
